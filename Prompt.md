@@ -14,7 +14,7 @@ Follow this structure.
 - State any assumptions if the requirements are ambiguous.
 
 ## 2. Input Domain Identification
-For each input, identify:
+For each input, identify( return as list not table):
 - Input name
 - Data type
 - Purpose
@@ -24,7 +24,6 @@ For each input, identify:
 - Dependencies with other inputs
 - Assumptions
 
-Present the results in a table.
 
 ## 3. Equivalence Class Partitioning
 For every input:
@@ -33,7 +32,7 @@ For every input:
 - Assign unique IDs (EC1, EC2, ...).
 - Explain why each equivalence class exists.
 
-Present the results in a table.
+Present the results in a list.
 
 ## 4. Domain Testing Methodology
 Provide a detailed explanation of how Domain Testing was applied step by step.
@@ -188,11 +187,7 @@ Return test cases as table
 
 
 
-
-
-
-
-
+Prompt 4
 Act as a Senior Software Test Engineer specializing in Boundary Value Analysis.
 
 Using ONLY the Boundary Value Analysis below, generate a comprehensive set of Boundary Value Analysis test cases.
@@ -207,19 +202,10 @@ Important rules:
 - Every identified boundary must be covered by at least one test case.
 - Add additional boundary test cases where necessary for thorough coverage.
 
-Generate the following table:
+Generate the following table for test cases:
 
-| Test Case ID | Input(s) | Test Data | Boundary Tested | Expected Result | Test Type | 
+| Test Case ID | Input(s) | Test Data | Boundary Tested | Expected Result
 
-Specify Boundary Tested speficily like <2, >=3,... 
-For every applicable boundary, generate test cases for:
-- Just below minimum
-- Minimum
-- Just above minimum
-- Nominal value
-- Just below maximum
-- Maximum
-- Just above maximum
 
 If multiple inputs have boundaries, include combinations where appropriate.
 
