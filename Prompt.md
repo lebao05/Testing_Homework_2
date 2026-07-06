@@ -80,13 +80,10 @@ Follow this structure.
 ## 2. Boundary Identification
 For each input, identify:
 - Input name
-- Data type
 - Validation rules
 - Minimum value or minimum length (if applicable)
 - Maximum value or maximum length (if applicable)
 - Range constraints
-- Format constraints
-- Dependencies with other inputs
 - Assumptions
 
 Present the results in a table.
