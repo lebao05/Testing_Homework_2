@@ -785,7 +785,7 @@ delivered=1, pending=1, confirmed=1, shipping=1, canceled=1, total_amount=1
 Just above minimum for all counts and order amount
 The history view correctly handles a minimal non-zero set of orders across all statuses with the smallest positive order amount.
 
-III. Pool C: FR-12: Dashboard
+III. Pool C: FR-13: Dashboard
 1. Requirement Analysis
 Functional Requirements Summary:
 FR-13 defines the admin dashboard metrics:
@@ -803,7 +803,7 @@ Assumptions:
 - The dashboard reads order records from persisted storage.
 - The total number of orders counts all order records, regardless of status.
 - Revenue is calculated only from orders where status equals delivered.
-- Admin access is already governed by FR-12 and is assumed to be valid for dashboard access.
+- Admin access is already governed by FR-13 and is assumed to be valid for dashboard access.
 
 
 2. Input Domain Identification

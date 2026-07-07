@@ -1,3 +1,37 @@
+# AI Audit Report
+
+## 1. Student Information
+
+| Field | Value |
+|-------|-------|
+| **Student name (printed)** | LE GIA BAO |
+| **Student ID** | 23127325 |
+| **Class / Cohort** | KIEM THU PHAN MEM - 23KTPM2 |
+| **Assignment ID (e.g., HW#00, HW#02)** | HW#02 |
+| **Assignment date** | 7/7/2026 |
+| **AI tool(s) used** | GitHub Copilot |
+| **AI used?** | ☑ Yes &nbsp;&nbsp; ☐ No |
+
+---
+
+## 2. Instructions (read before filling)
+
+- Add **one row per AI-generated artifact** (test case, script, checklist, OpenAPI specification, JMeter plan, etc.).
+- Paste the **verbatim prompt** — **DO NOT** paraphrase.
+- Paste the **verbatim AI output** (or include a labeled screenshot in the report).
+- Tag the verdict as **VALID**, **INVALID**, or **INCOMPLETE**.
+- The reasoning must cite a **course slide**, **ISTQB section**, or **technical RFC**.
+- Show the corrected artifact with the changes highlighted.
+- Sample rows are in *italic* — replace them before submission.
+
+---
+
+## 3. Audit List — One Row per Artifact
+
+
+
+Tool:GITHUB COPILOT
+DATE: 7:03 6/7/2026
 Prompt:  Based on api_specification.md and Readme.md, Act as a senior Software Test Engineer specializing in Domain Testing.
 
 I have already identified the system under test:
@@ -60,7 +94,9 @@ At the end, provide a complete summary table containing:
 
 Do not create any test cases.
 
-Response: Optimized tool selection
+Response: 
+
+Optimized tool selection
 
 I’m reviewing the specification and project documentation first so I can base the domain analysis strictly on the stated requirements for FR-03.
 
@@ -246,6 +282,9 @@ New password	Meets all strength rules	Too short, missing uppercase, missing lowe
 Confirm new password	Exactly matches new password	Empty, mismatch, non-string	Empty, single-char mismatch, exact match
 If you want, I can next turn this into a formal test design document format for reporting or review.
 
+Verdict:INCOMPLETE 
+Reasoning (ISTQB): The response does not comply with the requested scope. Although the prompt explicitly required Domain Testing only, the AI also performed Boundary Value Analysis (BVA). According to ISTQB Foundation Level, Equivalence Partitioning (Domain Testing) and Boundary Value Analysis are distinct test design techniques and should be applied independently unless explicitly requested together. Including BVA violates the prompt instructions and mixes two separate testing techniques.
+Student Fix:INCOMPLETE. The AI did not follow the prompt because it included a Boundary Value Analysis section even though the task explicitly required only Domain Testing. To correct this, the Boundary Value Analysis section should be removed entirely, and the report should focus exclusively on Domain Testing by retaining the Requirement Analysis, Input Domain Identification, Equivalence Class Partitioning, Domain Testing Process, and a summary table containing only the identified equivalence classes and domain information. This ensures the analysis remains within the requested scope and complies with the separation of test design techniques defined by ISTQB.
 
 
 
@@ -264,6 +303,11 @@ If you want, I can next turn this into a formal test design document format for 
 
 
 
+
+
+
+Tool: GITHUB COPILOT
+DATE: 6/7/2026 7:15
 Prompt: 
 ---Prompt 3.
 Act as a Senior Software Test Engineer.
@@ -424,7 +468,11 @@ Return test cases as table
 1. Coverage Summary
 2. Mapping between Equivalence Classes and Test Cases
 3. Any additional recommendations to improve domain coverage.
-Response: I’m restructuring the prior domain suite into the table format you requested and keeping it strictly aligned with the supplied equivalence classes.
+
+
+Response:
+
+I’m restructuring the prior domain suite into the table format you requested and keeping it strictly aligned with the supplied equivalence classes.
 
 Domain Testing Test Suite for FR-03: Forgot Password and Password Reset
 The table below is based only on the provided domain testing analysis and covers all stated valid and invalid equivalence classes, with additional cases for dependency validation, missing required fields, and multi-field error handling.
@@ -535,6 +583,16 @@ Verify that the system returns distinct error messages for different invalid cla
 Test case-insensitive behavior for email and password inputs where the requirement might imply normalization.
 Add scenario coverage for trimmed versus untrimmed whitespace handling before validation.
 
+(3) Verdict
+INCOMPLETE
+
+(4) Reasoning (ISTQB)
+
+The generated test suite provides good coverage of the identified valid and invalid equivalence classes and includes additional scenarios such as dependency validation, missing required fields, and multiple invalid inputs. However, according to ISTQB Foundation Level §4.2 (Equivalence Partitioning), each test case should ideally isolate a single equivalence class so that failures can be traced to one specific input domain. The suite combines multiple invalid equivalence classes in a single test case (e.g., TC-FP-028), which is useful for robustness testing but should not be relied upon to demonstrate complete equivalence class coverage. Such combined tests should supplement, rather than replace, individual equivalence class test cases.
+
+(5) Student Fix
+
+PARTIALLY COMPLETE. The generated test suite covers all identified equivalence classes and includes valuable additional scenarios, but it combines several invalid equivalence classes into a single test case (e.g., TC-FP-028). To better align with ISTQB Equivalence Partitioning, each equivalence class should have at least one dedicated test case that isolates that class while keeping the remaining inputs valid. Combined invalid-input scenarios should be retained only as supplementary robustness tests rather than evidence of equivalence class coverage.
 
 
 
@@ -548,119 +606,9 @@ Add scenario coverage for trimmed versus untrimmed whitespace handling before va
 
 
 
-
-
-
-Prompt: **Pool A - FR-03: Forgot password and password reset (two steps)
-
-I.Domain Testing
-
-1.Requirement Analsys
-
-Functional requirements summary
-
-FR-03 defines a two-step password reset flow:
-
-- Step 1: The user enters an already registered email address.
-- The system generates a 6-digit OTP and presents it in the demo environment.
-- Step 2: The user enters the OTP, a new password, and a confirmation of the new password.
-- The new password must follow the same strength rules as FR-01.
-- The two password fields must match.
-- The OTP must be valid for the same email that initiated the reset.
-User inputs
-
-The main user inputs for this feature are:
-
-- Email address (Step 1)
-- OTP (Step 2)
-- New password (Step 2)
-- Confirm new password (Step 2)
-Assumptions
-
-- The new password uses the same strength rules defined in FR-01: minimum 8 characters, at least one uppercase, one lowercase, one digit, and one special character.
-- OTP is a numeric 6-digit value, represented as a string in the API.
-- OTP validity is tied to the specific email that requested the reset.
-- The spec does not explicitly define an expiry window or one-time-use rule, but SEC-07 suggests these should be treated as expected constraints.
-2. Input Domain Identification
-
-Input 1: Email address
-
-- Data type: String
-- Valid domain: A syntactically valid email address that belongs to an existing registered user
-- Invalid domain: Empty, malformed, unregistered, non-string values
-- Constraints:
-- Dependencies:
-- Assumptions:
-Input 2: OTP
-
-- Data type: String
-- Valid domain: A 6-digit numeric code that matches the OTP generated for the current reset request
-- Invalid domain: Wrong value, wrong length, non-numeric, expired/used, empty
-- Constraints:
-- Dependencies:
-- Assumptions:
-Input 3: New password
-
-- Data type: String
-- Valid domain: A password that meets the strength rules and is not empty
-- Invalid domain: Too short, missing required character classes, empty/whitespace, non-string
-- Constraints:
-- Dependencies:
-- Assumptions:
-Input 4: Confirm new password
-
-- Data type: String
-- Valid domain: A value identical to the new password
-- Invalid domain: Empty, different from the new password, non-string
-- Constraints:
-- Dependencies:
-- Assumptions:
-3. Equivalence Class Partitioning
-
-Email address
-
-- EC1: Valid registered email, e.g. user@domain.com
-- EC2: Valid format but unregistered email
-- EC3: Empty or whitespace-only input
-- EC4: Malformed email format, such as missing @, missing domain, invalid characters
-- EC5: Wrong data type, such as null or numeric input
-Why these classes exist:
-
-- They separate successful flows from different failure categories.
-- They distinguish syntax problems from account-state problems.
-OTP
-
-- EC1: Correct 6-digit OTP for the current reset request
-- EC2: Incorrect 6-digit OTP for the same email
-- EC3: OTP with fewer than 6 digits
-- EC4: OTP with more than 6 digits
-- EC5: Non-numeric OTP
-- EC6: Empty OTP
-- EC7: OTP that is expired or already consumed
-Why these classes exist:
-
-- They cover normal valid input and all meaningful invalid input patterns related to length, format, and validity state.
-New password
-
-- EC1: Strong password meeting all rules
-- EC2: Password shorter than 8 characters
-- EC3: Password missing uppercase letter
-- EC4: Password missing lowercase letter
-- EC5: Password missing digit
-- EC6: Password missing special character
-- EC7: Empty or whitespace-only password
-- EC8: Non-string input
-Why these classes exist:
-
-- Each class isolates a single rule violation, which is important for domain-driven validation.
-Confirm new password
-
-- EC1: Matches the new password exactly
-- EC2: Empty or whitespace-only confirmation
-- EC3: Different from the new password
-- EC4: Non-string input
-** 
-
+Tool:GITHUB COPILOT
+DATE: 7:30 6/7/2026
+Prompt:
 
 Based on api_specification.md and Readme.md, act as a Senior Software Test Engineer specializing in Boundary Value Analysis (BVA).
 
@@ -732,7 +680,9 @@ Do NOT generate any test cases.
 
 
 
-Response: 1. Requirement Analysis
+Response: 
+
+1.Requirement Analysis
 FR-03 defines a two-step password reset flow:
 
 Step 1: the user enters an email address to request a password reset.
@@ -822,160 +772,24 @@ New password	Must be at least 8 characters	8 characters	Not defined	7 characters
 Email address	No measurable boundary defined	Not applicable	Not applicable	Not applicable
 Confirm new password	No measurable boundary defined	Not applicable	Not applicable	Not applicable
 
+(3) Verdict
+
+VALID
+
+(4) Reasoning (ISTQB)
+
+The response adheres to the requested scope by performing only Boundary Value Analysis without introducing Domain Testing or test cases. It correctly identifies the measurable boundaries for the OTP (exactly 6 digits) and new password (minimum 8 characters), explains why email address and confirm password are not suitable for Boundary Value Analysis due to the absence of measurable boundaries, and documents the analysis methodology. This is consistent with ISTQB Foundation Level §4.3, which applies Boundary Value Analysis only to inputs with explicit measurable limits.
+
+(5) Student Fix
+
+VALID. No changes are required. The analysis follows the prompt instructions, correctly applies Boundary Value Analysis only to inputs with measurable constraints, avoids Domain Testing and test case generation, and clearly documents the identified boundaries, assumptions, methodology, and summary.
 
 
 
-
-
-
-Prompt: 
-
-
-Based on api_specification.md and Readme.md, act as a Senior Software Test Engineer specializing in Boundary Value Analysis (BVA).
-
-Focus on:
-FR-03: Forgot Password and Password Reset (two-step process).
-
-Your task is to perform ONLY the Boundary Value Analysis. Do NOT perform Domain Testing and do NOT generate any test cases.
-
-Follow this structure.
-
-## 1. Requirement Analysis
-- Summarize the functional requirements.
-- Identify all user inputs.
-- State any assumptions if the requirements are ambiguous.
-
-## 2. Boundary Identification
-For each input, identify:
-- Input name
-- Validation rules
-- Minimum value or minimum length (if applicable)
-- Maximum value or maximum length (if applicable)
-- Range constraints
-- Assumptions
-
-Present the results in a table.
-
-## 3. Boundary Value Analysis
-For every input with measurable boundaries, identify:
-- Just below minimum
-- Minimum
-- Just above minimum
-- Nominal value
-- Just below maximum
-- Maximum
-- Just above maximum
-
-If an input has no measurable boundary (e.g., email format), explain why Boundary Value Analysis is not applicable.
-
-Explain why each identified boundary should be tested.
-
-Present the results in a table.
-
-## 4. Boundary Value Analysis Methodology
-Provide a detailed explanation of how Boundary Value Analysis was applied.
-
-Include:
-1. Study the requirements.
-2. Identify inputs with measurable constraints.
-3. Determine all lower and upper boundaries.
-4. Identify representative boundary values.
-5. Review completeness of boundary coverage.
-
-Explain the reasoning behind every step.
-
-## 5. Summary
-Provide a final summary table containing:
-- Input
-- Constraint
-- Lower Boundary
-- Upper Boundary
-- Boundary Values
-
-Do NOT identify equivalence classes.
-Do NOT perform Domain Testing.
-Do NOT generate any test cases.
-
-
-Response: 
-
-eviewing FR-03 and API spec details to extract exact input boundaries for the password reset flow.
-
-1. Requirement Analysis
-Functional requirements summary
-FR-03 defines a two-step forgot-password / reset-password workflow:
-
-Step 1: user submits registered email to receive a 6-digit OTP.
-Step 2: user submits OTP, new password, and password confirmation.
-New password must follow FR-01 password strength rules.
-Password confirmation must match.
-OTP is valid only for the requested email and cannot be reused across emails.
-User inputs
-Email address for OTP request
-OTP code
-New password
-Confirm password
-Assumptions
-Email must be a valid registered email but the spec does not define explicit min/max lengths beyond normal email validation.
-OTP is exactly 6 digits and numeric.
-Password strength rules from FR-01 imply measurable length constraints and character-type requirements.
-No explicit upper limits are specified for email length, OTP lifetime, or password length in the requirement text.
-The analysis is limited to numeric or measurable boundaries, not format-only items such as email syntax or password complexity categories.
-2. Boundary Identification
-Input name	Validation rules	Min value / min length	Max value / max length	Range constraints	Assumptions
-Email address	Valid email format; registered email	Usually 1 character minimum, but effectively defined by email syntax	None defined	Must be syntactically valid email	No explicit length boundaries in spec
-OTP code	6-digit numeric OTP	6 digits	6 digits	Exactly 6 digits	OTP is a fixed-length token
-New password	Must satisfy FR-01 strong password rules	Minimum 8 characters	None defined	>= 8 characters; must contain uppercase, lowercase, digit, special char	No explicit upper bound specified
-Confirm password	Must match new password	Same as new password	Same as new password	Must be equal to new password	Confirmation is compared exactly
-3. Boundary Value Analysis
-Input	Just below minimum	Minimum	Just above minimum	Nominal value	Just below maximum	Maximum	Just above maximum	Why test?
-Email address	N/A	N/A	N/A	N/A	N/A	N/A	Email has no explicit measurable length boundaries in FR-03; BVA is not applicable.	
-OTP code	5 digits	6 digits	7 digits	6 digits with valid numeric value	N/A	N/A	Verify exact-length requirement of OTP and reject incorrect-length tokens.	
-New password length	7 chars	8 chars	9 chars	12 chars	N/A	N/A	Verify the minimum password length from FR-01 and the first valid longer password.	
-Confirm password	N/A	N/A	N/A	N/A	N/A	N/A	Confirm password is a match check, not a measurable range input. BVA is not applicable beyond matching validation.	
-Notes
-OTP code is the only input with a strict fixed-length numeric boundary in FR-03.
-New password has a measurable lower bound of 8 characters based on FR-01.
-Email address and confirm password are structural/format or equality checks, so BVA is not meaningful without explicit length or numeric constraints.
-No upper boundaries are defined for password or email length.
-4. Boundary Value Analysis Methodology
-Study the requirements.
-
-Read FR-03 and FR-01 to identify all user inputs and the validation rules that apply.
-Determine which inputs are subject to numeric or length-based boundaries.
-Identify inputs with measurable constraints.
-
-Select OTP code because FR-03 specifies a 6-digit random OTP.
-Select new password because FR-01 defines a minimum length.
-Exclude email address and confirm password from numeric BVA because no explicit min/max lengths are defined and matching behavior is not a boundary test.
-Determine all lower and upper boundaries.
-
-For OTP, the lower and upper boundary is the exact 6-digit length.
-For new password, the lower bound is 8 characters.
-No upper boundaries are provided in the specification, so upper-bound analysis is not applicable.
-Identify representative boundary values.
-
-For OTP: 5 digits (just below), 6 digits (minimum/valid), 7 digits (just above).
-For new password: 7 chars (just below), 8 chars (minimum), 9 chars (just above), and a nominal longer valid password.
-For non-measurable inputs, explicitly note BVA is not applicable.
-Review completeness of boundary coverage.
-
-Confirm that all measurable inputs with constraints are included in the analysis.
-Confirm that inputs without explicit measurable bounds are excluded and explained.
-5. Summary
-Input	Constraint	Lower Boundary	Upper Boundary	Boundary Values
-Email address	Valid email syntax/registered email	N/A	N/A	BVA not applicable
-OTP code	Exactly 6 digits	6 digits	6 digits	5 digits, 6 digits, 7 digits
-New password	Minimum 8 chars	8 chars	None defined	7 chars, 8 chars, 9 chars, 12 chars
-Confirm password	Must match new password	N/A	N/A	BVA not applicable
-Total password constraints	Contains uppercase/lowercase/digit/special char	N/A	N/A	Format checks, not BVA
-Note: FR-03 defines only a few measurable boundaries. The analysis is focused on OTP length and minimum password length; email and confirmation logic are format/equality concerns and are not suitable for BVA without explicit numeric constraints.
-
-
-
+Tool:GITHUB COPILOT
+DATE: 6/7/2026 8:00
 
 Prompt: 
-
 
 **
 ## 
@@ -1124,8 +938,6 @@ N/A
 
 Confirm password is a match check, not a measurable range input. BVA is not applicable beyond matching validation.
 
-**
-Prompt 4
 Act as a Senior Software Test Engineer specializing in Boundary Value Analysis.
 
 Using ONLY the Boundary Value Analysis below, generate a comprehensive set of Boundary Value Analysis test cases.
@@ -1157,17 +969,29 @@ BVA-FR03-04	OTP code; New password; Confirm password	OTP=123456; New password=Ab
 BVA-FR03-05	OTP code; New password; Confirm password	OTP=123456; New password=Abcde1!23; Confirm password=Abcde1!23	Password just above minimum length	Reset flow accepts the password and proceeds.
 BVA-FR03-06	OTP code; New password; Confirm password	OTP=123456; New password=Abcdef1!2345; Confirm password=Abcdef1!2345	Nominal password length	Reset flow accepts the password and proceeds with a normal valid-length password.
 
+(3) Verdict
+
+INCOMPLETE
+
+(4) Reasoning (ISTQB)
+
+The generated test suite covers several identified boundary values but does not provide complete coverage of all boundaries identified in the Boundary Value Analysis. According to ISTQB Foundation Level §4.3 (Boundary Value Analysis), every identified boundary value should be represented by at least one test case. The BVA identified both minimum and nominal values for the OTP, but the test suite omits a dedicated test case for the OTP nominal value. Additionally, the prompt requested that every identified boundary be covered, yet only six test cases were generated despite more boundary values being identified.
+
+(5) Student Fix
+
+INCOMPLETE. The generated Boundary Value Analysis test suite should include at least one dedicated test case for every boundary value identified in the analysis. In particular, add a separate test case covering the OTP nominal value (a valid 6-digit OTP used as a normal representative value) instead of relying on the minimum-valid test case to represent both minimum and nominal boundaries. Review the complete boundary list and ensure that each identified boundary has explicit test coverage before considering the test suite complete.
+
 
 
 
 
 
 Pool B:
-
+Tool: Github Copilot
+Date: 6/7/2026 20:00
 Prompt:
 ---Prompt 1
 Based on api_specification.md and Readme.md,database.js act as a Senior Software Test Engineer specializing in Domain Testing (Equivalence Class Partitioning).
-
 Focus on:
 FR-11: Order history view (user)
 Your task is to perform ONLY the Domain Testing analysis. Do NOT perform Boundary Value Analysis and do NOT generate any test cases.
@@ -1339,12 +1163,25 @@ Covers invalid or corrupted status fields.
 EC17: Missing / null status
 Invalid
 Covers incomplete order records.
+(3) Verdict
+INCOMPLETE
+
+(4) Reasoning (ISTQB)
+
+The response identifies equivalence classes for both user-provided inputs and system-generated data. According to ISTQB Foundation Level §4.2 (Equivalence Partitioning), equivalence classes should be derived from actual input conditions that influence system behavior. In FR-11, user inputs are limited to the authenticated request for viewing order history. Fields such as Order ID, Order Date, Total Amount, and Order Status are output data displayed by the system rather than independent user inputs. Treating these output fields as separate input domains unnecessarily expands the domain analysis and departs from the intended scope of Equivalence Partitioning.
+
+(5) Student Fix
+
+INCOMPLETE. The Domain Testing analysis should focus only on actual system inputs that determine the behavior of the Order History feature, such as the authenticated user context and the request to retrieve order history. Remove Order ID, Order Date, Total Amount, and Order Status from the Input Domain Identification and Equivalence Class Partitioning sections because they are output data retrieved from storage and displayed to the user, not independent inputs supplied to the system. If validation of displayed order data is required, it should be addressed through data integrity or UI verification rather than Equivalence Partitioning.
 
 
 
 
 
 
+
+Tool:Github copilot
+Date:6/7/2026 21:00
 Prompt:
 
 Based on api_specification.md and Readme.md, act as a Senior Software Test Engineer specializing in Boundary Value Analysis (BVA).
@@ -1494,10 +1331,23 @@ Order date/time	Date/time	N/A	N/A	BVA not applicable
 Authenticated user identity	Auth context	N/A	N/A
 
 
+(3) Verdict
+
+INVALID
+
+(4) Reasoning (ISTQB)
+
+The Boundary Value Analysis is based on assumed inputs and constraints that are not defined in the requirements. According to ISTQB Foundation Level §4.3 (Boundary Value Analysis), boundary values must be derived from explicit, measurable input constraints specified by the requirements. The response invents inputs such as "Number of delivered orders," "Number of pending orders," and other per-status counts, assigning them a lower boundary of 0 despite no such input fields or constraints being specified in FR-11. BVA should not introduce new measurable inputs or infer numeric boundaries that are absent from the requirements.
+
+(5) Student Fix
+
+INVALID. The analysis should be rewritten to derive boundary values only from measurable inputs explicitly defined in FR-11 or the supporting specifications. Remove the invented inputs such as the number of orders for each status unless the requirements explicitly define them as system inputs with measurable constraints. If FR-11 does not specify numeric limits for order counts, total amounts, or date ranges, explicitly state that Boundary Value Analysis is not applicable rather than assuming boundaries such as 0 or selecting arbitrary nominal values like 10 or 500000.
 
 
 
-Prmopt: 
+Tool: Github copilot
+Date: 21:30 6/7/2026
+Prompt: 
 
 **
 ## 5. Boundary Identification
@@ -1808,7 +1658,17 @@ BVA-FR11-04	Total amount per order	delivered=0, pending=0, confirmed=0, shipping
 BVA-FR11-05	Number of delivered orders; Number of pending orders; Number of confirmed orders; Number of shipping orders; Number of canceled orders; Total amount per order	delivered=10, pending=10, confirmed=10, shipping=10, canceled=10, total_amount=500000	Nominal values for counts and amount	The history view handles normal-sized metric values correctly and displays expected totals for counts and amount.
 BVA-FR11-06	Number of delivered orders; Number of pending orders; Number of confirmed orders; Number of shipping orders; Number of canceled orders; Total amount per order	delivered=1, pending=1, confirmed=1, shipping=1, canceled=1, total_amount=1	Just above minimum for all counts and order amount	The history view correctly handles a minimal non-zero set of orders across all statuses with the smallest positive order amount.
 
+(3) Verdict
 
+INVALID
+
+(4) Reasoning (ISTQB)
+
+The generated test cases are based on boundary values that were not validly derived from the requirements. According to ISTQB Foundation Level §4.3 (Boundary Value Analysis), test cases must be derived from legitimate boundary values identified from explicit, measurable input constraints. In this response, the test cases use invented inputs such as the number of delivered, pending, confirmed, shipping, and canceled orders and arbitrary nominal values (e.g., 10 and 500000) that are not specified in FR-11. Since the underlying Boundary Value Analysis is invalid, the resulting test cases are also invalid.
+
+(5) Student Fix
+
+INVALID. The Boundary Value Analysis test cases should be regenerated using only boundary values derived from explicit requirements. Remove all test cases based on assumed inputs such as the number of orders by status and arbitrary monetary values unless these constraints are explicitly defined in FR-11 or the supporting specifications. If the requirements do not specify measurable boundaries for these values, no Boundary Value Analysis test cases should be created for them. Instead, document that Boundary Value Analysis is not applicable for those aspects due to the absence of defined numeric boundaries.
 
 
 
@@ -1820,7 +1680,8 @@ BVA-FR11-06	Number of delivered orders; Number of pending orders; Number of conf
 
 --------------------------------------
 Pool C
-
+Tool: Github Copilot
+Date: 14:00 6/7/2026
 Prompt: ---Prompt 1
 Based on api_specification.md and Readme.md,database.js act as a Senior Software Test Engineer specializing in Domain Testing (Equivalence Class Partitioning).
 
@@ -1861,7 +1722,10 @@ Do NOT include boundary values.
 Do NOT create any test cases.
 
 
-Response: ’m consolidating the FR-13 requirement into a domain-analysis report and will keep it strictly to equivalence-class partitioning without test cases.
+Response: 
+
+
+’m consolidating the FR-13 requirement into a domain-analysis report and will keep it strictly to equivalence-class partitioning without test cases.
 
 Domain Testing Analysis – FR-13: Dashboard
 Based on README.md, api_specification.md, and database.js, this analysis focuses only on domain-based equivalence classes for the dashboard logic.
@@ -1995,10 +1859,23 @@ Whether the order dataset is present and structurally valid.
 Whether the requester has valid admin access.
 These partitions define the main domain behavior for the dashboard calculations and access logic.
 
+(3) Verdict
+
+INCOMPLETE
+
+(4) Reasoning (ISTQB)
+
+The response generally follows ISTQB Foundation Level §4.2 (Equivalence Partitioning) by identifying valid and invalid equivalence classes for the dashboard inputs. However, it incorrectly treats "Order dataset" as an independent input domain. In FR-13, the actual decision logic is based on individual order attributes (such as status and total_amount) and the authenticated admin context. The dataset itself is an internal data source rather than a user or system input with distinct equivalence classes. Including dataset conditions such as "empty," "null," or "malformed" mixes data availability and system error handling with Equivalence Partitioning, making the analysis broader than the intended scope.
+
+(5) Student Fix
+
+INCOMPLETE. The Domain Testing analysis should focus on the actual inputs that determine the dashboard calculations, namely order status, total_amount, and admin access context. Remove Order dataset as a separate input domain because it represents an internal data source rather than an independent input for Equivalence Partitioning. Conditions such as an empty or missing dataset should instead be treated as system or data retrieval scenarios, not equivalence classes. This keeps the analysis aligned with ISTQB Equivalence Partitioning and the functional requirements of FR-13.
 
 
 
 
+Tool:Github Copilot
+Date: 14:15 6/7/2026
 Prompt:---Prompt 3.
 Act as a Senior Software Test Engineer.
 
@@ -2191,8 +2068,25 @@ Add a case where the dataset contains both delivered and non-delivered orders wi
 Validate that the dashboard returns a consistent empty-state or error response when the dataset is missing, rather than partially rendering metrics.
 If the dashboard exposes an API, verify that authorization failures return clear and consistent error messages for all invalid role contexts.
 
+(3) Verdict
+
+INCOMPLETE
+
+(4) Reasoning (ISTQB)
+
+The generated test suite provides good coverage of the identified equivalence classes, but it is not fully consistent with the Domain Testing analysis provided. According to ISTQB Foundation Level §4.2 (Equivalence Partitioning), test cases should be derived from the defined equivalence classes only. The AI introduced additional invalid scenarios—such as malformed dataset, whitespace-only role, special-character role, and incorrect data type for role—even though these were not defined as equivalence classes (ECs) in the supplied Domain Testing analysis. While such robustness tests may be useful, they should either be supported by additional equivalence classes or clearly distinguished from the Domain Testing coverage.
+
+(5) Student Fix
+
+INCOMPLETE. The generated test suite should remain consistent with the provided Domain Testing analysis by creating test cases only for the defined equivalence classes (EC1–EC7). If additional robustness scenarios such as malformed datasets, whitespace-only role values, special-character inputs, or incorrect data types are included, they should first be added to the Domain Testing analysis as explicit equivalence classes. Otherwise, remove these extra test cases to maintain traceability between the equivalence classes and the generated Domain Testing test suite.
 
 
+
+
+
+
+Tool: GITHUB COPILOT
+Date: 14:45 6/7/2026
 Prompt:
 
 Based on api_specification.md and Readme.md, act as a Senior Software Test Engineer specializing in Boundary Value Analysis (BVA).
@@ -2264,6 +2158,7 @@ Do NOT generate any test cases.
 
 
 Response:
+
 Boundary Value Analysis – FR-13: Dashboard
 This analysis uses only README.md and api_specification.md context for FR-13 and does not perform Domain Testing or generate test cases.
 
@@ -2347,8 +2242,25 @@ total_amount per order	Numeric, >= 0	0	None defined	-1, 0, 1, 500000
 Admin access context	Auth context	N/A	N/A	BVA not applicable
 Note: The FR-13 specification provides only lower-bound constraints for numeric metrics; there are no explicit upper bounds, so the boundary analysis focuses on lower-bound behavior and representative nominal values.
 
+(3) Verdict
+
+INCOMPLETE
+
+(4) Reasoning (ISTQB)
+
+The response correctly performs Boundary Value Analysis without introducing Domain Testing or test cases. However, according to ISTQB Foundation Level §4.3 (Boundary Value Analysis), boundary values should be derived from actual system inputs with measurable constraints. The analysis includes "Total revenue for delivered orders", which is a derived output calculated from the order dataset rather than an independent input. Boundary Value Analysis should focus on the input variables (e.g., order counts and total_amount per order, if these assumptions are accepted) that influence the calculation, not on the computed result itself.
+
+(5) Student Fix
+
+INCOMPLETE. Remove "Total revenue for delivered orders" from the Boundary Value Analysis because it is a calculated output rather than an independent input with its own validation constraints. Restrict the analysis to measurable inputs, such as the assumed non-negative order counts and total_amount per order, and clearly state that the dashboard revenue is a derived value whose correctness should be verified through functional testing rather than treated as a separate boundary analysis target.
 
 
+
+
+
+
+Tool: GitHUB COPILOT
+Date: 15:00 6/7/2026
 Prompt:
 **
 ## 5. Boundary Identification
@@ -2545,207 +2457,6 @@ Generate the following table for test cases:
 
 If multiple inputs have boundaries, include combinations where appropriate.
 
-
-
-
-
-
-Prompt:
-
-**
-## 5. Boundary Identification
-Input name
-
-Validation rules
-
-Min value
-
-Max value
-
-Range constraints
-
-Assumptions
-
-Number of delivered orders
-
-Must be non-negative
-
-0
-
-None defined
-
->= 0
-
-Count derived from orders with status='delivered'
-
-Number of pending,canceled,shipping orders
-
-Must be non-negative
-
-0
-
-None defined
-
->= 0
-
-Count derived from order records
-
-Total revenue for delivered orders
-
-Must be non-negative
-
-0
-
-None defined
-
->= 0
-
-Revenue is sum of delivered order amounts
-
-total_amount per order
-
-Must be non-negative
-
-0
-
-None defined
-
->= 0
-
-Each order amount is assumed valid
-
-Admin access context
-
-Must be authenticated admin
-
-N/A
-
-N/A
-
-N/A
-
-Not subject to BVA
-
----
-
-## 6. Boundary Value Analysis
-Input
-
-Just below minimum
-
-Minimum
-
-Just above minimum
-
-Just below maximum
-
-Maximum
-
-Just above maximum
-
-Why test?
-
-Number of delivered orders
-
--1
-
-0
-
-1
-
-N/A
-
-N/A
-
-N/A
-
-Verifies that negative counts are rejected, zero delivered orders are handled correctly, and the first valid delivered order is counted accurately. 
-
-Number of pending, confirmed,shipping, canceled orders
-
--1
-
-0
-
-1
-
-N/A
-
-N/A
-
-N/A
-
-Verifies that negative counts are rejected, zero orders are accepted, and the first valid order is counted correctly for each status. 
-
-Total revenue for delivered orders
-
--1
-
-0
-
-1
-
-N/A
-
-N/A
-
-N/A
-
-Verifies that negative revenue values are rejected, zero revenue is handled correctly, and revenue is calculated accurately when the first positive amount is added. 
-
-total_amount per order
-
--1
-
-0
-
-1
-
-N/A
-
-N/A
-
-N/A
-
-Verifies that negative order amounts are rejected, zero-value orders are handled correctly (if allowed), and the smallest positive order amount is processed correctly. 
-
-Admin access context
-
-N/A
-
-N/A
-
-N/A
-
-N/A
-
-N/A
-
-N/A
-
-BVA not applicable; this is categorical/authentication data.
-
-**
-Act as a Senior Software Test Engineer specializing in Boundary Value Analysis.
-
-Using ONLY the Boundary Value Analysis below, generate a comprehensive set of Boundary Value Analysis test cases.
--Don't need to test -1 for number of order and total_amount
-Boundary Value Analysis:
-[Paste the output from Prompt 2 here.]
-
-Important rules:
-- Generate test cases ONLY from the identified boundary values.
-- Do NOT perform Domain Testing.
-- Do NOT create or reference equivalence classes.
-- Every identified boundary must be covered by at least one test case.
-- Add additional boundary test cases where necessary for thorough coverage.
-
-Generate the following table for test cases:
-
-| Test Case ID | Input(s) | Test Data | Boundary Tested | Expected Result
-
-
-If multiple inputs have boundaries, include combinations where appropriate.
 
 
 
@@ -2761,8 +2472,281 @@ BVA-FR13-06	Number of delivered orders; Total revenue for delivered orders	deliv
 
 
 
+(3) Verdict
+
+INVALID
+
+(4) Reasoning (ISTQB)
+
+The generated Boundary Value Analysis test suite contains logically inconsistent test data that contradicts the functional requirements. According to ISTQB Foundation Level §4.3 (Boundary Value Analysis), boundary test cases must use valid and internally consistent input combinations unless the purpose is to test a specific invalid boundary. In BVA-FR13-06, the test data specifies 0 delivered orders while total revenue = 1, which is impossible because FR-13 explicitly states that total revenue is calculated only from delivered orders. This invalid dependency makes the test case incorrect and unsuitable as a Boundary Value Analysis test.
+
+(5) Student Fix
+
+INVALID. Remove or correct BVA-FR13-06 because its test data violates the functional requirement that total revenue is calculated only from delivered orders. If the number of delivered orders is 0, the total revenue must also be 0. Ensure that all Boundary Value Analysis test cases maintain valid dependencies between related inputs so that the test data is consistent with the specified business rules.
 
 
 
 
+Tool: Chat GPT
+Date: 8:00 5/7/2026
+Prompt:
+giờ tôi đang tách riêng 2 phần, domain testting và boundary analysis 1. Domain Testing. With the support of AI tools, apply the domain testing
+technique to design a comprehensive set of test cases. You are
+encouraged to add more test cases where needed for thorough coverage.
+Provide a detailed, step-by-step explanation of how you applied the
+technique. Review the course lectures before you begin.
+2. Boundary Value Analysis. Likewise, apply the boundary value analysis
+technique to design a comprehensive set of test cases, adding more as
+needed for thorough coverage. Provide a detailed, step-by-step explanation
 
+Response:
+ Prompt 1 - Domain Testing Analysis (KHÔNG tạo test case)
+Based on api_specification.md and Readme.md, act as a Senior Software Test Engineer specializing in Domain Testing (Equivalence Class Partitioning).
+
+Focus on:
+FR-03: Forgot Password and Password Reset (two-step process).
+
+Your task is to perform ONLY the Domain Testing analysis. Do NOT perform Boundary Value Analysis and do NOT generate any test cases.
+
+Follow this structure.
+
+## 1. Requirement Analysis
+- Summarize the functional requirements.
+- Identify all user inputs.
+- State any assumptions if the requirements are ambiguous.
+
+## 2. Input Domain Identification
+For each input, identify:
+- Input name
+- Data type
+- Purpose
+- Valid domain
+- Invalid domain
+- Constraints
+- Dependencies with other inputs
+- Assumptions
+
+Present the results in a table.
+
+## 3. Equivalence Class Partitioning
+For every input:
+- Identify all valid equivalence classes.
+- Identify all invalid equivalence classes.
+- Assign unique IDs (EC1, EC2, ...).
+- Explain why each equivalence class exists.
+
+Present the results in a table.
+
+## 4. Domain Testing Methodology
+Provide a detailed explanation of how Domain Testing was applied step by step.
+
+Include:
+1. Study the requirements
+2. Identify all inputs
+3. Determine valid domains
+4. Determine invalid domains
+5. Partition inputs into equivalence classes
+6. Verify completeness of the identified domains
+
+Explain the reasoning behind every step.
+
+## 5. Summary
+Provide a final summary table containing:
+- Input
+- Valid Equivalence Classes
+- Invalid Equivalence Classes
+- Constraints
+- Dependencies
+
+Do NOT include boundary values.
+Do NOT create any test cases.
+Prompt 2 - Boundary Value Analysis (KHÔNG tạo test case)
+Based on api_specification.md and Readme.md, act as a Senior Software Test Engineer specializing in Boundary Value Analysis (BVA).
+
+Focus on:
+FR-03: Forgot Password and Password Reset (two-step process).
+
+Your task is to perform ONLY the Boundary Value Analysis. Do NOT perform Domain Testing and do NOT generate any test cases.
+
+Follow this structure.
+
+## 1. Requirement Analysis
+- Summarize the functional requirements.
+- Identify all inputs that have measurable boundaries.
+
+## 2. Boundary Identification
+For each applicable input, identify:
+- Input name
+- Data type
+- Minimum value
+- Maximum value
+- Length limits
+- Range constraints
+- Format constraints (if applicable)
+
+Explain why each constraint exists.
+
+## 3. Boundary Value Analysis
+For every applicable input, identify:
+- Just below minimum
+- Minimum
+- Just above minimum
+- Nominal value
+- Just below maximum
+- Maximum
+- Just above maximum
+
+Explain the significance of every boundary.
+
+## 4. Boundary Analysis Methodology
+Provide a detailed explanation of how Boundary Value Analysis was applied step by step.
+
+Include:
+1. Study the requirements
+2. Identify inputs with boundaries
+3. Determine all lower and upper boundaries
+4. Identify boundary values
+5. Review completeness of boundary coverage
+
+## 5. Summary
+Provide a final table containing:
+- Input
+- Constraint
+- Lower Boundary
+- Upper Boundary
+- Boundary Values
+
+Do NOT identify equivalence classes.
+Do NOT create any test cases.
+Prompt 3 - Generate Domain Testing Test Cases
+Act as a Senior Software Test Engineer.
+
+Using ONLY the Domain Testing analysis below, generate a comprehensive Domain Testing test suite.
+
+Domain Testing Analysis:
+[Paste the output from Prompt 1.]
+
+Requirements:
+- Cover every valid equivalence class.
+- Cover every invalid equivalence class.
+- Add additional test cases where necessary to achieve complete domain coverage.
+- Do NOT include Boundary Value Analysis unless required to represent an equivalence class.
+
+Generate a table with the following columns:
+
+- Test Case ID
+- Requirement
+- Input(s)
+- Test Data
+- Equivalence Class ID
+- Expected Result
+- Test Type (Valid / Invalid)
+- Reason
+
+Include test cases for:
+- Valid inputs
+- Invalid inputs
+- Empty input
+- Null input
+- Whitespace-only input
+- Incorrect data type
+- Special characters
+- Missing required fields
+- Invalid format
+- Dependency validation
+- Multiple invalid inputs
+- Error handling
+
+After the table, provide:
+1. Coverage Summary
+2. Mapping between Equivalence Classes and Test Cases
+3. Any additional recommendations to improve domain coverage.
+Prompt 4 - Generate Boundary Value Analysis Test Cases
+Act as a Senior Software Test Engineer.
+
+Using ONLY the Boundary Value Analysis below, generate a comprehensive Boundary Value Analysis test suite.
+
+Boundary Analysis:
+[Paste the output from Prompt 2.]
+
+Requirements:
+- Generate test cases for every identified boundary.
+- Ensure each lower and upper boundary is fully covered.
+- Add additional boundary test cases where appropriate.
+- Do NOT include equivalence class testing.
+
+Generate a table with the following columns:
+
+- Test Case ID
+- Requirement
+- Input(s)
+- Test Data
+- Boundary Tested
+- Expected Result
+- Test Type (Lower Boundary / Upper Boundary / Nominal)
+- Reason
+
+For every applicable input, include test cases for:
+- Just below minimum
+- Minimum
+- Just above minimum
+- Nominal value
+- Just below maximum
+- Maximum
+- Just above maximum
+
+After the table, provide:
+1. Boundary Coverage Summary
+2. Mapping between Boundary Values and Test Cases
+3. Any additional recommendations to improve boundary coverage.
+
+(3) Verdict
+
+Incomplete
+
+(4) Reasoning (ISTQB)
+
+The AI-generated output consists of a well-structured prompt workflow for applying Domain Testing (Equivalence Class Partitioning) and Boundary Value Analysis (BVA) separately, followed by generating their respective test suites. This separation aligns with ISTQB Foundation Level guidance that Equivalence Partitioning and Boundary Value Analysis are distinct black-box test design techniques and should be applied independently. The prompts clearly instruct the AI not to mix the two techniques, require systematic analysis before test case generation, and ensure comprehensive coverage of identified domains and boundaries. The generated prompts are logically consistent, complete, and suitable for producing test artifacts that conform to the intended testing methodology.
+
+(5) Student Fix
+
+Incomplete. little changes were required because the generated prompts correctly separated Domain Testing from Boundary Value Analysis, defined a logical four-step workflow (analysis followed by test case generation for each technique), and provided sufficient instructions to produce comprehensive, standards-aligned testing artifacts without mixing different black-box testing techniques.
+
+
+
+## 4. Summary of AI Accuracy
+
+Aggregate the verdicts from Section 3 and complete the table below.
+
+| Metric | Count | Percentage |
+|--------|------:|-----------:|
+| Total AI-generated artifacts audited | 12 | 100% |
+| VALID (correct, accepted as-is) | 1 | 8.33% |
+| INVALID (wrong; rejected) | 3 | 25.00% |
+| INCOMPLETE (acceptable after edits) | 8 | 66.67% |
+
+---
+
+## 5. Conclusion — When should AI be used (or not)?
+
+Throughout this assignment, AI performed well at analyzing requirements, identifying input domains, generating equivalence classes, and producing an initial set of Domain Testing and Boundary Value Analysis test cases. It significantly reduced the time required to create structured documentation and helped ensure that common validation scenarios were not overlooked. However, AI occasionally misunderstood ambiguous business rules, generated redundant test cases, and missed some edge cases that depended on application-specific behavior. These issues required careful human review and refinement. My recommendation is to use AI as a disciplined assistant rather than a replacement for the tester. Breaking the task into smaller, technique-driven prompts and validating every AI-generated result leads to more accurate, complete, and reliable testing artifacts.
+
+---
+
+## 6. Mandatory Disclosure
+
+> The Domain Testing analysis, Boundary Value Analysis, test cases, and report were initially generated by **GitHub Copilot**; I reviewed and modified the requirement analysis, equivalence classes, boundary analysis, and test cases, added additional edge cases and missing boundary test cases, and corrected AI-generated inaccuracies to align with the project requirements and ISTQB Foundation Level guidance; the AI Audit Report, test execution results, bug reports, and conclusions were written and verified by me. The detailed AI Audit Report is attached as Appendix A. I confirm I did not use AI to generate any artifact listed in the prohibited category.
+
+---
+
+## Signature
+
+| Field | Value |
+|------|------|
+| **Student name (printed)** | LE GIA BAO |
+| **Student ID** | 23127325 |
+| **Class / Cohort** | KIEM THU PHAN MEM - 23KTPM2 |
+| **Course** | CS423 / CSC13003 – Software Testing |
+| **Instructor** | Dr. Lam Quang Vu / Dr. Tran Duy Hoang / MSc. Tran Thi Bich Hanh / MSc. Truong Phuoc Loc / MSc. Ho Tuan Thanh |
+| **Date** | 7/7/2026 |
+| **Signature** | LE GIA BAO |

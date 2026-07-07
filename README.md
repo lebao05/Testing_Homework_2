@@ -18,7 +18,7 @@
 | 1   | Feature A (FR-03: Forgot Password & Password Reset) – Domain Testing + Boundary Value Analysis  |        25 |              **23** |
 | 2   | Feature B (FR-11: Order History View) – Domain Testing + Boundary Value Analysis                |        25 |              **23** |
 | 3   | Feature C (FR-13: Dashboard) – Domain Testing + Boundary Value Analysis                         |        25 |              **23** |
-| 4   | Feature D (Mobile: Forgot Password & Password Reset) – Domain Testing + Boundary Value Analysis |        15 |              **23** |
+| 4   | Feature D (Mobile: Forgot Password & Password Reset) – Domain Testing + Boundary Value Analysis |        15 |              **13** |
 | 5   | Agent Skills                                                                                    |        10 |              **8** |
 |     | **Total**                                                                                       |   **100** |             **90** |
 
@@ -63,16 +63,6 @@
 | Mobile – Forgot Password & Password Reset |             30 |                       6 |     36 |
 | **Total**                                 |         **71** |                  **24** | **95** |
 
----
-
-# Bugs Reported
-
-| Bug ID                          | Feature         | Severity | Status | GitHub Issue             |
-| ------------------------------- | --------------- | -------- | ------ | ------------------------ |
-| BUG-FR13-001                    | FR-13 Dashboard | High     | Open   | *(Add GitHub Issue URL)* |
-| *(Add more bugs if applicable)* |                 |          |        |                          |
-
----
 
 # Demo Videos
 
