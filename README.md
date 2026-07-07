@@ -1,83 +1,92 @@
-# HW02 – Domain Testing & Boundary Value Analysis
+# HW02 – Domain Testing on EShop
 
-## Project Information
+## Student Information
 
-- **Course:** Software Testing
-- **Assignment:** HW02 – Domain Testing
-- **System Under Test (SUT):** <System Name>
-- **Team:** <Team Name / Members>
-- **Date:** <Submission Date>
+| Item         | Value                                                     |
+| ------------ | --------------------------------------------------------- |
+| Course       | CS423 – CSC15003 – Software Testing (AI-augmented · 2026) |
+| Assignment   | HW02 – Domain Testing on EShop                            |
+| Student Name | Lê Gia Bảo                                                |
+| Student ID   | 23127325                                                  |
 
 ---
 
 # Self-Assessment
 
-| Criterion | Max Marks | Self-Assessment | Comments |
-|-----------|----------:|----------------:|----------|
-| Domain Testing | XX | XX | |
-| Boundary Value Analysis | XX | XX | |
-| Test Case Design | XX | XX | |
-| Test Execution | XX | XX | |
-| Bug Reporting | XX | XX | |
-| Documentation | XX | XX | |
-| **Total** | **100** | **XX** | |
+| No. | Criteria                                                                                        | Max Grade | Self-Assessed Grade |
+| --- | ----------------------------------------------------------------------------------------------- | --------: | ------------------: |
+| 1   | Feature A (FR-03: Forgot Password & Password Reset) – Domain Testing + Boundary Value Analysis  |        25 |              **23** |
+| 2   | Feature B (FR-11: Order History View) – Domain Testing + Boundary Value Analysis                |        25 |              **23** |
+| 3   | Feature C (FR-13: Dashboard) – Domain Testing + Boundary Value Analysis                         |        25 |              **23** |
+| 4   | Feature D (Mobile: Forgot Password & Password Reset) – Domain Testing + Boundary Value Analysis |        15 |              **23** |
+| 5   | Agent Skills                                                                                    |        10 |              **8** |
+|     | **Total**                                                                                       |   **100** |             **90** |
 
-> *(Replace the criteria and maximum marks with those provided by your instructor.)*
+---
+
+# Selected Features
+
+| Pool   | Feature ID | Feature Name                     |
+| ------ | ---------- | -------------------------------- |
+| Pool A | FR-03      | Forgot Password & Password Reset |
+| Pool B | FR-11      | Order History View               |
+| Pool C | FR-13      | Dashboard                        |
+| Pool D | Mobile     | Forgot Password & Password Reset |
 
 ---
 
 # Test Summary Report
 
-## Overview
+## Overall Statistics
 
-| Metric | Count |
-|--------|------:|
-| Number of Features | |
-| Number of Test Cases Designed | |
-| Number of Test Cases Executed | |
-| Number of Test Cases Passed | |
-| Number of Test Cases Failed | |
-| Number of Test Cases Not Yet Executed | |
-| Number of Bugs Found | |
-| Number of Critical Bugs | |
-| Number of Major Bugs | |
-| Number of Minor Bugs | |
-
----
-
-## Feature Coverage
-
-| Feature | Test Cases | Status |
-|---------|------------|--------|
-| Feature 1 | TC001–TC010 | ✅ Completed |
-| Feature 2 | TC011–TC020 | ✅ Completed |
-| Feature 3 | TC021–TC030 | 🔄 In Progress |
-| Feature 4 | TC031–TC040 | ⏳ Not Executed |
+| Metric                                      |                          Count |
+| ------------------------------------------- | -----------------------------: |
+| Number of Features                          |                          **4** |
+| Domain Testing Test Cases Designed          |                         **71** |
+| Boundary Value Analysis Test Cases Designed |                         **24** |
+| **Total Test Cases Designed**               |                         **95** |
+| Test Cases Executed                         |                         **59**  |
+| Test Cases Passed                           |                         **31** |
+| Test Cases Failed                           |                         **28** |
+| Test Cases Not Yet Executed                 |                         **36** |
+| Number of Bugs Found                        |                         **10** |
 
 ---
 
-## Test Execution Summary
+## Feature Summary
 
-| Status | Count |
-|--------|------:|
-| ✅ Passed | |
-| ❌ Failed | |
-| ⏳ Not Executed | |
-| **Total** | |
+| Feature                                   | Domain Testing | Boundary Value Analysis |  Total |
+| ----------------------------------------- | -------------: | ----------------------: | -----: |
+| FR-03 – Forgot Password & Password Reset  |             30 |                       6 |     36 |
+| FR-11 – Order History View                |              5 |                       6 |     11 |
+| FR-13 – Dashboard                         |              6 |                       6 |     12 |
+| Mobile – Forgot Password & Password Reset |             30 |                       6 |     36 |
+| **Total**                                 |         **71** |                  **24** | **95** |
 
 ---
 
-## Bug Summary
+# Bugs Reported
 
-| Bug ID | Severity | Status | Description |
-|--------|----------|--------|-------------|
-| BUG-001 | Critical | Open | |
-| BUG-002 | Major | Fixed | |
-| BUG-003 | Minor | Closed | |
+| Bug ID                          | Feature         | Severity | Status | GitHub Issue             |
+| ------------------------------- | --------------- | -------- | ------ | ------------------------ |
+| BUG-FR13-001                    | FR-13 Dashboard | High     | Open   | *(Add GitHub Issue URL)* |
+| *(Add more bugs if applicable)* |                 |          |        |                          |
 
 ---
 
 # Demo Videos
 
-## Video Links
+Agent Skills Demonstration: https://www.youtube.com/watch?v=vnvEgVVfeW4
+---
 
+# Repository
+
+* GitHub Repository: https://github.com/lebao05/Testing_Homework_2
+* GitHub Issues: https://github.com/TrongNhan2401/Testing-23KTPM2-10/issues
+
+---
+
+# AI Tools Used
+
+* ChatGPT (OpenAI)
+* GITHUB COPILOT
